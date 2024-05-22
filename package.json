@@ -1,6 +1,6 @@
 {
-  "name": "bullet-record",
-  "displayName": "bullet-record",
+  "name": "vue-simple-snippet",
+  "displayName": "vue-simple-snippet",
   "description": "Record go to options",
   "version": "0.0.1",
   "engines": {
@@ -9,15 +9,29 @@
   "categories": [
     "Other"
   ],
-  "activationEvents": [],
+  "activationEvents": [
+      "onLanguage:vue"
+  ],
   "main": "./dist/extension.js",
   "contributes": {
-    "commands": [
+    "languages": [
       {
-        "command": "bullet-record.helloWorld",
-        "title": "Hello World"
+        "id": "vue",
+        "extensions": [".vue"],
+        "aliases": ["Vue", "vue"]
       }
-    ]
+    ],
+    "configuration": {
+      "type": "object",
+      "title": "My Extension Configuration",
+      "properties": {
+        "myExtension.elInputPath": {
+          "type": "string",
+          "default": "path/to/el-input",
+          "description": "The path to the el-input component"
+        }
+      }
+    }
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",

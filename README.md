@@ -1,6 +1,6 @@
-# bullet-record README
+# vue-simple-snippet README
 
-This is the README for your extension "bullet-record". After writing up a brief description, we recommend including the following sections.
+This is the README for your extension "vue-simple-snippet". After writing up a brief description, we recommend including the following sections.
 
 ## Features
 

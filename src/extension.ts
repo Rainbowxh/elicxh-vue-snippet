@@ -1,26 +1,42 @@
-// The module 'vscode' contains the VS Code extensibility API
-// Import the module and reference it with the alias vscode in your code below
 import * as vscode from 'vscode';
+import { config } from "./templates/element-plus.config"
 
-// This method is called when your extension is activated
-// Your extension is activated the very first time the command is executed
 export function activate(context: vscode.ExtensionContext) {
-
-	// Use the console to output diagnostic information (console.log) and errors (console.error)
-	// This line of code will only be executed once when your extension is activated
-	console.log('Congratulations, your extension "bullet-record" is now active!');
-
-	// The command has been defined in the package.json file
-	// Now provide the implementation of the command with registerCommand
-	// The commandId parameter must match the command field in package.json
-	let disposable = vscode.commands.registerCommand('bullet-record.helloWorld', () => {
-		// The code you place here will be executed every time your command is executed
-		// Display a message box to the user
-		vscode.window.showInformationMessage('Hello World from bullet-record!');
-	});
-
-	context.subscriptions.push(disposable);
+  const initConfigs = () => {
+    const completionItems: vscode.CompletionItem[] = [];
+    let isCached = false;
+    return () => {
+      if(isCached) {
+        return completionItems;
+      }
+      const elementConfig = config;
+      const keys = Object.keys(elementConfig)
+      for (let i = 0; i < keys.length; i++) {
+        const arr = elementConfig[keys[i]]
+        if (Array.isArray(arr)) {
+          for (let j = 0; j < arr.length; j++) {
+            const item = arr[j]
+            if (!item) {
+              continue;
+            }
+            const myCompletionItem = new vscode.CompletionItem(item.pattern, vscode.CompletionItemKind.Function);
+            myCompletionItem.insertText = new vscode.SnippetString(item.snippet);
+            completionItems.push(myCompletionItem);
+          }
+        }
+      }
+      isCached = true;
+      return completionItems;
+    }
+  }
+  const cacheConfigsFunc = initConfigs();
+  const provider = vscode.languages.registerCompletionItemProvider('vue', {
+    provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+      return cacheConfigsFunc();
+    }
+  });
+  context.subscriptions.push(provider);
 }
 
 // This method is called when your extension is deactivated
-export function deactivate() {}
+export function deactivate() { }
