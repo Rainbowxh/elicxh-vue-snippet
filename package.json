@@ -1,6 +1,7 @@
 {
-  "name": "vue-simple-snippet",
-  "displayName": "vue-simple-snippet",
+  "name": "elicxh-vue-snippet",
+  "publisher": "elicxh",
+  "displayName": "elicxh-vue-snippet",
   "description": "Record go to options",
   "version": "0.0.1",
   "engines": {
