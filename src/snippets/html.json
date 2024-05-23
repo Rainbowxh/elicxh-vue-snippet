@@ -1,0 +1,8 @@
+{
+  "Vue composition template": {
+    "prefix": ["vv"],
+    "body": ["<template>"]
+  }
+}
+
+

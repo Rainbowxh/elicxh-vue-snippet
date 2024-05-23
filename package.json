@@ -15,24 +15,29 @@
   ],
   "main": "./dist/extension.js",
   "contributes": {
-    "languages": [
+    "snippets": [
       {
-        "id": "vue",
-        "extensions": [".vue"],
-        "aliases": ["Vue", "vue"]
+        "language": "vue",
+        "path": "./src/snippets/element-plus.json"
+      },
+      {
+        "language": "vue",
+        "path": "./src/snippets/vue.json"
+      },
+      {
+        "language": "html",
+        "path": "./src/snippets/html.json"
+      },
+      {
+        "language": "javascript",
+        "path": "./src/snippets/javascript.json"
+      },
+      {
+        "language": "typescript",
+        "path": "./src/snippets/typescript.json"
       }
-    ],
-    "configuration": {
-      "type": "object",
-      "title": "My Extension Configuration",
-      "properties": {
-        "myExtension.elInputPath": {
-          "type": "string",
-          "default": "path/to/el-input",
-          "description": "The path to the el-input component"
-        }
-      }
-    }
+    ]
+
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",

@@ -1,0 +1,15 @@
+{
+  "Button Primary": {
+    "prefix": "el.btn.primary",
+    "body": [
+      "<el-button>$0</el-button>"
+    ],
+    "description": "默认样式"
+  },
+  "Button Success": {
+    "prefix": "el.btn.success",
+    "body": [
+      "<el-button type=\"success\"'>$0</el-button>"
+    ]
+  }
+}
