@@ -41,10 +41,8 @@ function initCompletionItem(item: ConfigItem, config: {
     detail: item.labelDetail &&  "  " +  item.labelDetail   //格式化
   }, vscode.CompletionItemKind.Function);
 
-  console.log(options.triggerCharacters + (item.label || item.name));
-
   completionItem.insertText = new vscode.SnippetString(item.insertText);
-  completionItem.detail = item.detail;
+  completionItem.documentation = item.detail ? item.detail + "\n\n" + item.insertText : item.insertText;
   completionItem.filterText = item.filterText;
   if (options?.import) {
     // 当用户选择这个补全项时，触发的代码

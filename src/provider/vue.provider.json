@@ -1,27 +1,31 @@
 {
   "ref": {
     "name": "ref",  
-    "labelDesc": "vue ref Reactivity: Core",  
+    "labelDesc": "vue ref Reactivity: Core",
     "insertText": "const ${1} = ref(${2});",
-    "filterText": "ref"
+    "filterText": "ref",
+    "detail": "Takes an inner value and returns a reactive and mutable ref object, which has a single property .value that points to the inner value."
   },
   "reactive": {
     "name": "reactive",    
     "labelDesc": "vue reactive Reactivity: Core",
     "insertText": "const ${1} = reactive({${2}});",
-    "filterText": "reactive"
+    "filterText": "reactive",
+    "detail": "Returns a reactive proxy of the object."
   },
   "readonly": {
     "name": "readonly",
     "labelDesc": "vue readonly Reactivity: Core",
     "insertText": "const ${1} = readonly(${2});",
-    "filterText": "readonly"
+    "filterText": "readonly",
+    "detail": "Takes an object (reactive or plain) or a ref and returns a readonly proxy to the original."
   },
   "computed": {
     "name": "computed",
     "labelDesc": "vue computed Reactivity: Core",
     "insertText": "const ${1} = computed(() => ''${2});",
-    "filterText": "computed"
+    "filterText": "computed",
+    "detail": "Takes a getter function and returns a readonly reactive ref object for the returned value from the getter. It can also take an object with get and set functions to create a writable ref object."
   },
   "watchEffect": {
     "name": "watchEffect",

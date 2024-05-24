@@ -23,10 +23,6 @@
       {
         "language": "html",
         "path": "./src/snippets/html.json"
-      },
-      {
-        "language": "typescript",
-        "path": "./src/snippets/typescript.json"
       }
     ]
   },
