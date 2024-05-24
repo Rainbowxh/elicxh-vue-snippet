@@ -2,64 +2,110 @@ import * as vscode from 'vscode';
 import vueConfig from "./vue.provider.json";
 
 type ConfigItem = {
-  name: string,
+  name: string, // 引入的函数名
+  label?: string, //匹配名
+  labelDesc?: string, // 匹配名描述
+  labelDetail?: string, // 匹配细节
   insertText: string,
-  detail: string,
+  detail?: string,
   filterText: string
-}
-
-const VUE_TRIGGER = "v"
+};
 
 
-function initItem(document: vscode.TextDocument, item: ConfigItem, config: {
-  import: boolean,
-} = { import: true }) {
+
+// vref vcomputed
+const VUE_TRIGGER_CHARACTER = "v";
+
+// cache latest document.
+let _cacheDocument: vscode.TextDocument | null = null;
+// cache all completions items
+let _cacheItems: any[] = [];
+
+
+function initCompletionItem(item: ConfigItem, config: {
+  import?: boolean,
+  triggerCharacters?: string,
+}): vscode.CompletionItem {
+
+  const defaultConfig = {
+    import: true,
+    triggerCharacters: '',
+  };
+  const options = Object.assign(defaultConfig, config);
+  item.label = options.triggerCharacters + (item.label || item.name);
+  item.filterText = item.label + " " + item.filterText;
+
   const completionItem = new vscode.CompletionItem({
-    label: item.name || '',
-    description: item.name
+    label: item.label ,
+    description: item.labelDesc && "  " + item.labelDesc, //格式化空格
+    detail: item.labelDetail &&  "  " +  item.labelDetail   //格式化
   }, vscode.CompletionItemKind.Function);
+
+  console.log(options.triggerCharacters + (item.label || item.name));
+
   completionItem.insertText = new vscode.SnippetString(item.insertText);
   completionItem.detail = item.detail;
-  completionItem.filterText = item.filterText; // 设置前缀过滤
-
-  if (config?.import) {
+  completionItem.filterText = item.filterText;
+  if (options?.import) {
     // 当用户选择这个补全项时，触发的代码
     completionItem.command = {
       command: 'extension.addImport',
-      title: 'Add Vue Import',
-      arguments: [document.uri, item.name || '']
+      title: "Vue import",
+      arguments: [item.name || '']
     };
   }
-  return completionItem
+  return completionItem;
 }
 
-function initItems(document: vscode.TextDocument, triggerCharacters: string = "") {
-  const configs: {
-    [key: string]: ConfigItem
-  } = vueConfig;
-  const items: vscode.CompletionItem[] = []
+export function getProvideCompletionItems() {
+  try {
+    if (_cacheItems.length > 0) {
+      return _cacheItems;
+    }
 
-  for (let key of Object.keys(configs)) {
-    const item = initItem(document, {
-      ...configs[key],
-      filterText: triggerCharacters + configs[key].filterText
-    });
-    items.push(item)
+    const configs: {
+      [key: string]: ConfigItem
+    } = vueConfig;
+    const items: vscode.CompletionItem[] = [];
+
+    for (let key of Object.keys(configs)) {
+      const config = configs[key];
+      const item = initCompletionItem(config,
+        {
+          triggerCharacters: VUE_TRIGGER_CHARACTER
+        }
+      );
+      items.push(item);
+    }
+
+    _cacheItems = items;
+    return items;
+  } catch (err) {
+    return [];
   }
-  return items;
 }
 
 export function initProvider() {
+  // 预先初始化配置
+  getProvideCompletionItems();
   return vscode.languages.registerCompletionItemProvider('vue', {
     provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
-      // 示例补全项，设置 filterText 以实现前缀匹配
-      return initItems(document, VUE_TRIGGER);
+      _cacheDocument = document;
+      return getProvideCompletionItems();
     }
-  }, VUE_TRIGGER);
+  });
 }
 
 export function initImport() {
-  return vscode.commands.registerCommand('extension.addImport', async (uri: vscode.Uri, methodName: string) => {
+  return vscode.commands.registerCommand('extension.addImport', async (methodName: string) => {
+
+    const uri = _cacheDocument?.uri;
+
+    if(!uri) {
+      return;
+    }
+
+
     const edit = new vscode.WorkspaceEdit();
     const document = vscode.workspace.textDocuments.find(doc => doc.uri.toString() === uri.toString());
     if (!document) { return; }
@@ -117,5 +163,10 @@ export function initImport() {
     }
     await vscode.workspace.applyEdit(edit);
   });
+}
+
+export function clean() {
+  _cacheDocument = null;
+  _cacheItems = [];
 }
 
