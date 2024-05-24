@@ -15,7 +15,7 @@
     "onLanguage:vue"
   ],
   "main": "./dist/extension.js",
-  "icon": "./icons/logo.png",
+  "icon": "icons/logo.png",
   "contributes": {
     "snippets": [
       {
