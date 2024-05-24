@@ -3,6 +3,7 @@
   "publisher": "elicxh",
   "displayName": "elicxh-vue-snippet",
   "description": "Record go to options",
+  "repository": "https://github.com/Rainbowxh/elicxh-vue-snippet",
   "version": "0.0.1",
   "engines": {
     "vscode": "^1.89.0"
