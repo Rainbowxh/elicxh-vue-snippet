@@ -2,14 +2,14 @@
   "name": "elicxh-vue-snippet",
   "publisher": "elicxh",
   "displayName": "elicxh-vue-snippet",
-  "description": "Record go to options",
+  "description": "Snippets for vue",
   "repository": "https://github.com/Rainbowxh/elicxh-vue-snippet",
   "version": "0.1.0",
   "engines": {
     "vscode": "^1.89.0"
   },
   "categories": [
-    "Other"
+    "Snippets"
   ],
   "activationEvents": [
     "onLanguage:vue"
