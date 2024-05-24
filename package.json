@@ -4,7 +4,7 @@
   "displayName": "elicxh-vue-snippet",
   "description": "Snippets for vue",
   "repository": "https://github.com/Rainbowxh/elicxh-vue-snippet",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "engines": {
     "vscode": "^1.89.0"
   },
