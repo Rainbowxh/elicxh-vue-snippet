@@ -18,10 +18,6 @@
     "snippets": [
       {
         "language": "vue",
-        "path": "./src/snippets/element-plus.json"
-      },
-      {
-        "language": "vue",
         "path": "./src/snippets/vue.json"
       },
       {
@@ -29,15 +25,10 @@
         "path": "./src/snippets/html.json"
       },
       {
-        "language": "javascript",
-        "path": "./src/snippets/javascript.json"
-      },
-      {
         "language": "typescript",
         "path": "./src/snippets/typescript.json"
       }
     ]
-
   },
   "scripts": {
     "vscode:prepublish": "pnpm run package",

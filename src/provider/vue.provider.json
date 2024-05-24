@@ -1,0 +1,8 @@
+{
+  "computed": {
+    "name": "computed",    
+    "insertText": "computed(() => {${1}});",
+    "detail": "vue computed func;",
+    "filterText": "vcomputed"
+  }
+}

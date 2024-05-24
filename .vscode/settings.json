@@ -13,6 +13,7 @@
     "editor.formatOnSave": false,
     "cSpell.words": [
         "vicreate",
-        "viref"
+        "viref",
+        "vref"
     ],
 }
