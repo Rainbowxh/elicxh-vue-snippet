@@ -23,8 +23,24 @@
         "path": "./src/snippets/vue.json"
       },
       {
+        "language": "vue",
+        "path": "./src/snippets/element-plus/basic.json"
+      },
+      {
         "language": "html",
-        "path": "./src/snippets/html.json"
+        "path": "./src/snippets/element-plus/form.json"
+      },
+      {
+        "language": "html",
+        "path": "./src/snippets/element-plus/data.json"
+      },
+      {
+        "language": "html",
+        "path": "./src/snippets/element-plus/navigation.json"
+      },
+      {
+        "language": "html",
+        "path": "./src/snippets/element-plus/feedback.json"
       }
     ]
   },

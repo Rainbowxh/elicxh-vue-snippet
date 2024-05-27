@@ -1,0 +1,88 @@
+{
+  "el button": {
+    "scope": "html",
+    "prefix": "el.btn",
+    "body": [
+      "<el-button>${1:_buttonName}</el-button>"
+    ],
+    "description": "el button"
+  },
+  "el container": {
+    "prefix": "el.container.aside",
+    "body": [
+      "<el-container>",
+      "  <el-header>Header</el-header>",
+      "  <el-main>Main</el-main>",
+      "</el-container>"
+    ],
+    "description": "el container"
+  },
+  "el container aside": {
+    "prefix": "",
+    "body": [
+      "<el-container>",
+      "  <el-aside width=\"200px\">Aside</el-aside>",
+      "  <el-container>",
+      "    <el-header>Header</el-header>",
+      "    <el-main>Main</el-main>",
+      "    <el-footer>Footer</el-footer>",
+      "  </el-container>",
+      "</el-container>"
+    ],
+    "description": "el container aside"
+  },
+  "el container icon": {
+    "prefix": "el.icon",
+    "body": [
+      "<el-icon :size=\"${1:_iconSize}\" :color=\"${2:_iconColor}\">",
+      "  <${3:iconName} />",
+      "</el-icon>"
+    ],
+    "description": "el container icon"
+  },
+  "el layout": {
+    "prefix": "el.layout",
+    "body": [
+      "<el-row>",
+      "  <el-col :span=\"8\"><div class=\"grid-content ep-bg-purple\" /></el-col>",
+      "  <el-col :span=\"8\"><div class=\"grid-content ep-bg-purple-light\" /></el-col>",
+      "  <el-col :span=\"8\"><div class=\"grid-content ep-bg-purple\" /></el-col>",
+      "</el-row>"
+    ],
+    "description": "el layout"
+  },
+  "el link": {
+    "prefix": "el.link",
+    "body": [
+      "<el-link type=\"primary\">${1:_linkName}</el-link>"
+    ],
+    "description": "version >= 2.3.0;"
+  },
+  "el scrollbar": {
+    "prefix": "el.scrollbar",
+    "body": [
+      "<el-scrollbar height=\"400px\">",
+      "  ${1:_scrollbarInner}",
+      "</el-scrollbar>"
+    ],
+    "description": "el scrollbar"
+  },
+  "el space": {
+    "prefix": "el.space",
+    "body": [
+      "<el-space wrap direction=\"vertical\" alignment=\"start\" :size=\"${1:sizeNumber}\" spacer=\"\">",
+      "  ${1:_spaceInner}",
+      "</el-space>"
+    ],
+    "description": "el space"
+  },
+  "el space spacer": {
+    "prefix": "el.space.spacer",
+    "body": [
+      "<el-space wrap :size=\"${1:_sizeNumber}\" >",
+      "  ${2:spaceInner}",
+      "</el-space>"
+    ],
+    "description": "el space spacer;"
+  }
+}  

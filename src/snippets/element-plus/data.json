@@ -1,0 +1,156 @@
+{
+  "el avatar": {
+    "prefix": "el.avatar",
+    "body": [
+      "<el-avatar shape=\"circle\" :size=\"50\" :src=\"${1:_url}\" />"
+    ],
+    "description": "el avatar"
+  },
+  "el badge": {
+    "prefix": "el.badge",
+    "body": [
+      "<el-badge :value=\"${1:_ref_num}\" class=\"item\">",
+      "  ${2:_inner}",
+      "</el-badge>"
+    ],
+    "description": "el badge"
+  },
+  "el card": {
+    "prefix": "el.card",
+    "body": [
+      "<el-card style=\"max-width: 480px\">",
+      "  <template #header>",
+      "  </template>",
+      "  $BLOCK_COMMENT_START default $BLOCK_COMMENT_END",
+      "  <template #footer>",
+      "  </template>",
+      "</el-card>"
+    ],
+    "description": "el card"
+  },
+  "el carousel": {
+    "prefix": "el.carousel",
+    "body": [
+      "<el-carousel height=\"150px\" indicator-position=\"inside\">",
+      "  <el-carousel-item v-for=\"item in []\" :key=\"item\">",
+      "    \"$BLOCK_COMMENT_START innerEl $BLOCK_COMMENT_END\",",
+      "  </el-carousel-item>",
+      "</el-carousel>"
+    ],
+    "description": "el carousel"
+  },
+  "el collapse": {
+    "prefix": "el.collapse",
+    "body": [
+      "<el-collapse v-model=\"${1:_ref_strArr}\" @change=\"${2:_func_change}\" accordion>",
+      "  <el-collapse-item title=\"Consistency\" name=\"1\">",
+      "    <div>test1</div>",
+      "    <div>test2</div>",
+      "  </el-collapse-item>",
+      "</el-collapse>"
+    ],
+    "description": "el collapse"
+  },
+  "el descriptions": {
+    "prefix": "el.descriptions",
+    "body": [
+      "  <el-descriptions title=\"User Info\">",
+      "    <el-descriptions-item label=\"Username\">kooriookami</el-descriptions-item>",
+      "    <el-descriptions-item label=\"Telephone\">18100000000</el-descriptions-item>",
+      "    <el-descriptions-item label=\"Place\">Suzhou</el-descriptions-item>",
+      "    <el-descriptions-item label=\"Remarks\">",
+      "      <el-tag size=\"small\">School</el-tag>",
+      "    </el-descriptions-item>",
+      "    <el-descriptions-item label=\"Address\">",
+      "      No.1188, Wuzhong Avenue, Wuzhong District, Suzhou, Jiangsu Province",
+      "    </el-descriptions-item>",
+      "  </el-descriptions>"
+    ],
+    "description": "el descriptions"
+  },
+  "el empty": {
+    "prefix": "el.empty",
+    "body": [
+      "<el-empty image=\"${1:_url}\" :image-size=\"200\"/>"
+    ],
+    "description": "el empty"
+  },
+  "el progress": {
+    "prefix": "el.progress",
+    "body": [
+      "<el-progress :percentage=\"${1:_ref_num}\" status=\"success\" />"
+    ],
+    "description": "el progress"
+  },
+  "el table": {
+    "prefix": "el.table",
+    "body": [
+      "<el-table :data=\"${1: _ref_arr}\" stripe size=\"small\"",
+      " ${2}",
+      "</el-table>"
+    ],
+    "description": "el table"
+  },
+  "el table example": {
+    "prefix": "el.table.example",
+    "body": [
+      "<el-table :data=\"${1: _ref_arr}\" stripe style=\"width: 100%\">",
+      "  <el-table-column prop=\"date\" label=\"Date\" width=\"180\" />",
+      "  <el-table-column prop=\"name\" label=\"Name\" width=\"180\" />",
+      "</el-table>"
+    ],
+    "description": "el table example"
+  },
+  "el table column": {
+    "prefix": "el.table.column",
+    "body": [
+      "<el-table-column label=\"${1:_str}\" width=\"150\">",
+      "  <template #default=\"{ row }\">",
+      "    ${2:<div>table-column</div>}",
+      "  </template>",
+      "</el-table-column>"
+    ],
+    "description": "el table column"
+  },
+  "el tag": {
+    "prefix": "el.table.column",
+    "body": [
+      " <el-tag type=\"primary\">${1:_str}</el-tag>"
+    ],
+    "description": "el tag"
+  },
+  "el timeline": {
+    "prefix": "el.timeline",
+    "body": [
+      "<el-timeline style=\"max-width: 600px\">",
+      "    <el-timeline-item",
+      "      :timestamp=\"activity.timestamp\"",
+      "      :key=\"index\"",
+      "      :icon=\"activity.icon\"",
+      "      :type=\"activity.type\"",
+      "      :color=\"activity.color\"",
+      "      :size=\"activity.size\"",
+      "      :hollow=\"activity.hollow\"",
+      "      :timestamp=\"activity.timestamp\"",
+      "    >",
+      "      content",
+      "    </el-timeline-item>",
+      "</el-timeline>"
+    ],
+    "description": "el timeline"
+  },
+  "el tree": {
+    "prefix": "el.tree",
+    "body": [
+      "<el-tree",
+      "  style=\"max-width: 600px\"",
+      "  :data=\"${1:_ref_data}\"",
+      "  :props=\"${2:{}}\"",
+      "  @node-click=\"${3:_func}\"",
+      "/>"
+    ],
+    "description": "el tree"
+  }
+
+}  
+

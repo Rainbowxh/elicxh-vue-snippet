@@ -1,6 +1,6 @@
 {
   "Vue composition template": {
-    "prefix": ["vue.template", "vtemplate"],
+    "prefix": ["v.template", "vtemplate"],
     "body": [
       "<template>",
       "  <div>",

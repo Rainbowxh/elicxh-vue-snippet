@@ -12,14 +12,17 @@ type ConfigItem = {
 };
 
 
-
-// vref vcomputed
+/**
+ * In order to sort top suggestions. 
+ */
 const VUE_TRIGGER_CHARACTER = "v";
 
 // cache latest document.
 let _cacheDocument: vscode.TextDocument | null = null;
+
+const cacheMaps = new Map();
+
 // cache all completions items
-let _cacheItems: any[] = [];
 
 
 function initCompletionItem(item: ConfigItem, config: {
@@ -55,17 +58,17 @@ function initCompletionItem(item: ConfigItem, config: {
   return completionItem;
 }
 
-export function getProvideCompletionItems() {
+export function getProvideCompletionItems(key: string, jsonConfig: any) {
   try {
-    if (_cacheItems.length > 0) {
+    const _cacheItems = cacheMaps.get(key);
+    if (Array.isArray(_cacheItems) && _cacheItems.length > 0) {
       return _cacheItems;
     }
+    const items: vscode.CompletionItem[] = [];
 
     const configs: {
       [key: string]: ConfigItem
-    } = vueConfig;
-    const items: vscode.CompletionItem[] = [];
-
+    } = jsonConfig;
     for (let key of Object.keys(configs)) {
       const config = configs[key];
       const item = initCompletionItem(config,
@@ -75,35 +78,61 @@ export function getProvideCompletionItems() {
       );
       items.push(item);
     }
-
-    _cacheItems = items;
+    cacheMaps.set(key, items)
     return items;
   } catch (err) {
     return [];
   }
 }
 
+
+
+function getCurrentScope(document: vscode.TextDocument, position: vscode.Position): 'template' | 'script' | 'style' | 'other' {
+  const text = document.getText();
+  const offset = document.offsetAt(position);
+
+  const templateStart = text.lastIndexOf('<template', offset);
+  const templateEnd = text.indexOf('</template>', offset);
+
+  const scriptStart = text.lastIndexOf('<script', offset);
+  const scriptEnd = text.indexOf('</script>', offset);
+
+  const styleStart = text.lastIndexOf('<style', offset);
+  const styleEnd = text.indexOf('</style>', offset);
+
+  if (templateStart !== -1 && templateEnd !== -1 && templateStart < offset && offset < templateEnd) {
+    return 'template';
+  } else if (scriptStart !== -1 && scriptEnd !== -1 && scriptStart < offset && offset < scriptEnd) {
+    return 'script';
+  } else if (styleStart !== -1 && styleEnd !== -1 && styleStart < offset && offset < styleEnd) {
+    return 'style';
+  } else {
+    return 'other';
+  }
+}
+
+
 export function initProvider() {
+  getProvideCompletionItems('vue', vueConfig);
   // 预先初始化配置
-  getProvideCompletionItems();
   return vscode.languages.registerCompletionItemProvider('vue', {
     provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
       _cacheDocument = document;
-      return getProvideCompletionItems();
+      const scope = getCurrentScope(document,position)
+      if(scope === 'script') {
+        return getProvideCompletionItems('vue', vueConfig);
+      }
+      return []
     }
   });
 }
 
 export function initImport() {
   return vscode.commands.registerCommand('extension.addImport', async (methodName: string) => {
-
     const uri = _cacheDocument?.uri;
-
     if(!uri) {
       return;
     }
-
-
     const edit = new vscode.WorkspaceEdit();
     const document = vscode.workspace.textDocuments.find(doc => doc.uri.toString() === uri.toString());
     if (!document) { return; }
@@ -111,8 +140,6 @@ export function initImport() {
     const scriptTagRegex = /<script.*?>/;
     const importRegex = /import\s*{([^}]*)}\s*from\s*['"]vue['"]/;
     const scriptTagMatch = scriptTagRegex.exec(text);
-
-
     if (!scriptTagMatch) {
       vscode.window.showInformationMessage('No <script> tag found. Import statement not added.');
       return;
@@ -165,6 +192,6 @@ export function initImport() {
 
 export function clean() {
   _cacheDocument = null;
-  _cacheItems = [];
+  cacheMaps.clear();
 }
 

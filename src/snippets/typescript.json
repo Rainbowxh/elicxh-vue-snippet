@@ -1,0 +1,8 @@
+{
+  "function init": {
+    "prefix": "finit",
+    "body": "const ${1} = () => {${2}}",
+    "description": "init function"
+  },
+  "function loading"
+}
