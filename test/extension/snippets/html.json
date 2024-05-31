@@ -1,0 +1,11 @@
+{
+  "el-button": {
+    "prefix": "elbtn",
+    "body": [
+      "<el-button>Default</el-button>"
+    ],
+    "description": "el-button"
+  }
+}
+
+

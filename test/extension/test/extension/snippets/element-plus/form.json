@@ -1,0 +1,289 @@
+{
+  "el Autocomplete": {
+    "prefix": "el.autocomplete",
+    "body": [
+      "<el-autocomplete",
+      "  v-model=\"${1:_str}\"",
+      "  :fetch-suggestions=\"${2:_func}\"",
+      "  clearable",
+      "  placeholder=\"${3:_str}\"",
+      "  @select=\"${4:_func}\"",
+      "/>"
+    ],
+    "description": "el Autocomplete"
+  },
+  "el cascader": {
+    "prefix": "el.cascader",
+    "body": [
+      "<el-cascader",
+      "  v-model=\"${1:_str}\"",
+      "  :options=\"{2:_arr}\"",
+      "  @change=\"{3:_func}\"",
+      "/>"
+    ],
+    "description": "el cascader"
+  },
+  "el checkbox": {
+    "prefix": "el.checkbox",
+    "body": [
+      "<el-checkbox v-model=\"${1:_bool}\" label=\"${2:_str}\" size=\"${3:_num}\" />"
+    ],
+    "description": "el checkbox"
+  },
+  "el checkbox group": {
+    "prefix": "el.checkbox.group",
+    "body": [
+      "<el-checkbox-group v-model=\"${1:_arr}\">",
+      "  <el-checkbox label=\"Option A\" value=\"Value A\" />",
+      "  <el-checkbox label=\"Option B\" value=\"Value B\" />",
+      "  <el-checkbox label=\"disabled\" value=\"Value disabled\" disabled />",
+      "</el-checkbox-group>"
+    ],
+    "description": "el checkbox group"
+  },
+  "el color picker": {
+    "prefix": "el.colorpicker",
+    "body": [
+      "<el-color-picker v-model=\"color2\" />"
+    ],
+    "description": "el color picker"
+  },
+  "el datepicker": {
+    "prefix": "el.datepicker",
+    "body": [
+      "<el-date-picker",
+      "  v-model=\"${1:_str}\"",
+      "  type=\"date\"",
+      "  placeholder=\"${2:_str}\"",
+      "  :size=\"${3:_num}\"",
+      "/>"
+    ],
+    "description": "el datepicker"
+  },
+  "el datepicker daterange": {
+    "prefix": "el.datepicker.range",
+    "body": [
+      "<el-date-picker",
+      "  v-model=\"${1:_arr}\"",
+      "  type=\"daterange\"",
+      "  range-separator=\"${2:_str}\"",
+      "  start-placeholder=\"${3:_str}\"",
+      "  end-placeholder=\"${4:_str}\"",
+      "  :size=\"'default'\"",
+      "/>"
+    ],
+    "description": "el datepicker"
+  },
+  "el DateTimePicker": {
+    "prefix": "el.dateTimePicker",
+    "body": [
+      "<el-date-picker",
+      "  v-model=\"${1:_str}\"",
+      "  type=\"datetime\"",
+      "  placeholder=\"Select_date_and_time\"",
+      "  format=\"YYYY/MM/DD HH:mm:ss\"",
+      "/>"
+    ],
+    "description": "el DateTimePicker"
+  },
+  "el DateTimePicker range": {
+    "prefix": "el.dateTimePicker.range",
+    "body": [
+      "<el-date-picker",
+      "  v-model=\"${1:_arr}\"",
+      "  type=\"datetimerange\"",
+      "  range-separator=\"To\"",
+      "  start-placeholder=\"Select_date\"",
+      "  end-placeholder=\"End_date\"",
+      "  format=\"YYYY/MM/DD HH:mm:ss\"",
+      "/>"
+    ],
+    "description": "el DateTimePicker"
+  },
+  "el form": {
+    "prefix": "el.form",
+    "body": [
+      "<el-form ",
+      "  ref=\"_elForm\" ",
+      "  :model=\"${1:_arr}\"",
+      "  :rules=\"[]\" ",
+      "  label-position=\"left\" ",
+      "  label-width=\"80px\">",
+      "  ${2:_div}",
+      "</el-form>"
+    ],
+    "description": "el form"
+  },
+  "el form item": {
+    "prefix": "el.form.item",
+    "body": [
+      "<el-form-item label=\"${1:_str}\" prop=\"${2:_str}\">",
+      "  ${3:_div}",
+      "</el-form-item>"
+    ],
+    "description": "el form item"
+  },
+  "el input": {
+    "prefix": "el.input",
+    "body": [
+      "<el-input",
+      "  v-model=\"${1:_ref_str}\"",
+      "  style=\"width: 240px\"",
+      "  disabled=\"false\"",
+      "  placeholder=\"Please input\"",
+      "/>"
+    ],
+    "description": "el input"
+  },
+  "el inputnumber": {
+    "prefix": "el.input.number",
+    "body": [
+      "<el-input-number v-model=\"${1:_ref_num}\" :min=\"1\" :max=\"10\" @change=\"${2:_func}\" />"
+    ],
+    "description": "el inputnumber"
+  },
+  "el radiogroup": {
+    "prefix": "el.radiogroup",
+    "body": [
+      "<el-radio-group v-model=\"${1:_ref_str}\" class=\"\">",
+      "  <el-radio value=\"1\" size=\"large\">Option_1</el-radio>",
+      "  <el-radio value=\"2\" size=\"large\">Option_2</el-radio>",
+      "</el-radio-group>"
+    ],
+    "description": "el radiogroup"
+  },
+  "el rate": {
+    "prefix": "el.rate",
+    "body": [
+      "<el-rate v-model=\"${1:_ref_num}\" />"
+    ],
+    "description": "el rate"
+  },
+  "el select": {
+    "prefix": "el.select",
+    "body": [
+      "<el-select",
+      "  v-model=\"${1:_ref_str}\"",
+      "  clearable=\"false\"",
+      "  placeholder=\"Select\"",
+      "  style=\"width: 240px\"",
+      ">",
+      "  <el-option",
+      "    v-for=\"item in []\"",
+      "    :key=\"item.value\"",
+      "    :label=\"item.label\"",
+      "    :value=\"item.value\"",
+      "  />",
+      "</el-select>"
+    ],
+    "description": "el select"
+  },
+  "el select multiple": {
+    "prefix": "el.select",
+    "body": [
+      "<el-select",
+      "  v-model=\"${1:_ref_arr}\"",
+      "  clearable=\"false\"",
+      "  multiple",
+      "  placeholder=\"Select\"",
+      "  style=\"width: 240px\"",
+      ">",
+      "  <el-option",
+      "    v-for=\"item in []\"",
+      "    :key=\"item.value\"",
+      "    :label=\"item.label\"",
+      "    :value=\"item.value\"",
+      "  />",
+      "</el-select>"
+    ],
+    "description": "el select"
+  },
+  "el slider": {
+    "prefix": "el.slider",
+    "body": [
+      "<el-slider v-model=\"${1:_ref_num}\" />"
+    ],
+    "description": "el slider"
+  },
+  "el switch": {
+    "prefix": "el.switch",
+    "body": [
+      "<el-switch",
+      "  v-model=\"${1:_ref_bool}\"",
+      "  class=\"ml-2\"",
+      "  style=\"--el-switch-on-color: #13ce66; --el-switch-off-color: #ff4949\"",
+      "/>",
+      ""
+    ],
+    "description": "el switch"
+  },
+  "el timepicker": {
+    "prefix": "el.timepicker",
+    "body": [
+      "<el-time-picker",
+      "  v-model=\"${1:_ref_str}\"",
+      "  arrow-control",
+      "  placeholder=\"Arbitrary_time\"",
+      "/>"
+    ],
+    "description": "el timepicker"
+  },
+  "el timepicker range": {
+    "prefix": "el.timepicker.range",
+    "body": [
+      "<el-time-picker",
+      "  v-model=\"${1:_ref_arr}\"",
+      "  is-range",
+      "  range-separator=\"To\"",
+      "  start-placeholder=\"Start_time\"",
+      "  end-placeholder=\"End_time\"",
+      "/>"
+    ],
+    "description": "el timepicker range"
+  },
+  "el timeselect": {
+    "prefix": "el.timeselect",
+    "body": [
+      "<el-time-select",
+      "  v-model=\"${1:_ref_str}\"",
+      "  style=\"width: 240px\"",
+      "  start=\"08:30\"",
+      "  step=\"00:15\"",
+      "  end=\"18:30\"",
+      "  format=\"hh:mm A\"",
+      "  placeholder=\"Select_time\"",
+      "/>"
+    ],
+    "description": "el timeselect"
+  },
+  "el transfer": {
+    "prefix": "el.transfer",
+    "body": [
+      "<el-transfer v-model=\"${1:_ref_obj}\" :data=\"_ref_optionArr\" />"
+    ],
+    "description": "see more information on https://element-plus.org/zh-CN/component/transfer.html"
+  },
+  "el upload": {
+    "prefix": "el.upload",
+    "body": [
+      "<el-upload",
+      "  v-model:file-list=\"${1:_ref_arr}\"",
+      "  class=\"upload-demo\"",
+      "  action=\"https://run.mocky.io/v3/9d059bf9-4660-45f2-925d-ce80ad6c4d15\"",
+      "  multiple",
+      "  :on-preview=\"${2:_func_onPreview}\"",
+      "  :on-remove=\"${3:_func_onRemove}\"",
+      "  :before-remove=\"${4:_func_beforemove}\"",
+      "  :limit=\"3\"",
+      "  :on-exceed=\"${5:_func_onExceed}\"",
+      ">",
+      "  <el-button type=\"primary\">Click_to_upload</el-button>",
+      "  <template #tip>",
+      "    <span>jpg/png files with a size less than 500KB.</span>",
+      "  </template>",
+      "</el-upload>"
+    ],
+    "description": "el upload"
+  }
+}  
+

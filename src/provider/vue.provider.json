@@ -343,5 +343,13 @@
     "insertText": "withModifiers(() => {${2}},[${3}]);",
     "filterText": "withModifiers",
     "detail": "For adding built-in v-on modifiers to an event handler function."
+  },
+  "loading": {
+    "name": "loading",
+    "labelDesc": "vue custom loading example",
+    "labelDetail": "loading example",
+    "insertText": "const loading${1} = ref(false);",
+    "filterText": "loading",
+    "detail": "Fast loading for ref;"
   }
 }

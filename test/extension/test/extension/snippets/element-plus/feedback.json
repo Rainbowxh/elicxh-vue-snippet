@@ -1,0 +1,85 @@
+{
+  "el tooltip": {
+    "prefix": "el.tooltip",
+    "body": [
+      "<el-tooltip ",
+      "  effect=\"dark\" ",
+      "  content=\"${1:_str}\" ",
+      "  placement=\"top-start\">",
+      "  ${2:<el-button>button</el-button>}",
+      "</el-tooltip>"
+    ],
+    "description": "el tooltip"
+  },
+  "el popover": {
+    "prefix": "el.popover",
+    "body": [
+      "<el-popover",
+      "  placement=\"top-start\"",
+      "  title=\"Title\"",
+      "  :width=\"200\"",
+      "  trigger=\"hover\"",
+      "  content=\"this_is_content\"",
+      ">",
+      "  <template #reference>",
+      "    ${1: <div>test</div>}",
+      "  </template>",
+      "</el-popover>"
+    ],
+    "description": "el popover"
+  },
+  "el popconfirm": {
+    "prefix": "el.popconfirm",
+    "body": [
+      "<el-popconfirm",
+      "  width=\"220\"",
+      "  confirm-button-text=\"${1:OK}\"",
+      "  cancel-button-text=\"${2:No, Thanks}\"",
+      "  :icon=\"InfoFilled\"",
+      "  icon-color=\"#626AEF\"",
+      "  title=\"${3:Are_you_sure_to_delete_this?}\"",
+      ">",
+      "  <template #reference>",
+      "    ${4:_div}",
+      "  </template>",
+      "</el-popconfirm>"
+    ],
+    "description": "el popconfirm"
+  },
+  "el drawer": {
+    "prefix": "el.drawer",
+    "body": [
+      "<el-drawer ",
+      "  v-model=\"${1:_ref_bool}\" ",
+      "  title=\"${2:_str}\" ",
+      "  :with-header=\"false\">",
+      "  ${3:<div>drawer content<div>}",
+      "</el-drawer>"
+    ],
+    "description": "el drawer"
+  },
+  "el dialog": {
+    "prefix": "el.dialog",
+    "body": [
+      "<el-dialog v-model=\"${1:_ref_bool}\" title=\"Tips\" width=\"500\" :before-close=\"${2:_func_beforeClose}\">",
+      "  ${3:<span>This is a message</span>}",
+      "  <template #footer>",
+      "    <div class=\"dialog-footer\">",
+      "      <el-button @click=\"dialogVisible = false\">Cancel</el-button>",
+      "      <el-button type=\"primary\" @click=\"dialogVisible = false\">",
+      "        Confirm",
+      "      </el-button>",
+      "    </div>",
+      "  </template>",
+      "</el-dialog>"
+    ],
+    "description": "el dialog"
+  },
+  "el alert": {
+    "prefix": "el.alert",
+    "body": [
+      "<el-alert title=\"${1:Success_alert}\" type=\"${2:success}\" />"
+    ],
+    "description": "el alert"
+  }
+}

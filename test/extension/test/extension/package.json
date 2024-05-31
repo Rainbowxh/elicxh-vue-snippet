@@ -1,0 +1,78 @@
+{
+  "name": "elicxh-vue-snippet",
+  "publisher": "elicxh",
+  "displayName": "elicxh-vue-snippet",
+  "description": "Snippets for vue",
+  "repository": "https://github.com/Rainbowxh/elicxh-vue-snippet",
+  "version": "0.2.0",
+  "engines": {
+    "vscode": "^1.89.0"
+  },
+  "categories": [
+    "Snippets"
+  ],
+  "activationEvents": [
+    "onLanguage:vue"
+  ],
+  "main": "./dist/extension.js",
+  "icon": "icons/logo.png",
+  "contributes": {
+    "snippets": [
+      {
+        "language": "vue",
+        "path": "./snippets/vue.json"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/element-plus/basic.json"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/element-plus/form.json"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/element-plus/data.json"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/element-plus/navigation.json"
+      },
+      {
+        "language": "html",
+        "path": "./snippets/element-plus/feedback.json"
+      }
+    ]
+  },
+  "scripts": {
+    "vscode:prepublish": "pnpm run package",
+    "compile": "webpack",
+    "watch": "webpack --watch",
+    "package": "rm -rf dist/*;webpack --mode production --devtool hidden-source-map",
+    "compile-tests": "tsc -p . --outDir out",
+    "watch-tests": "tsc -p . -w --outDir out",
+    "pretest": "pnpm run compile-tests && pnpm run compile && pnpm run lint",
+    "lint": "eslint src --ext ts",
+    "test": "node ./out/test/runTest.js"
+  },
+  "devDependencies": {
+    "@types/mocha": "^10.0.3",
+    "@types/node": "18.x",
+    "@types/vscode": "^1.89.0",
+    "@typescript-eslint/eslint-plugin": "^6.9.0",
+    "@typescript-eslint/parser": "^6.9.0",
+    "@vscode/test-electron": "^2.3.6",
+    "copy-webpack-plugin": "^12.0.2",
+    "eslint": "^8.52.0",
+    "file-loader": "^6.2.0",
+    "glob": "^10.3.10",
+    "mocha": "^10.2.0",
+    "ts-loader": "^9.5.0",
+    "typescript": "^5.2.2",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4"
+  },
+  "files": [
+    "src/snippets"
+  ]
+}
