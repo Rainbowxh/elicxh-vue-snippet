@@ -6,6 +6,13 @@
     ],
     "description": "el avatar"
   },
+  "el tag": {
+    "prefix": "el.tag",
+    "body": [
+      "<el-tag type=\"${1:success}\">${2}</el-tag>"
+    ],
+    "description": "el tag"
+  },
   "el badge": {
     "prefix": "el.badge",
     "body": [
