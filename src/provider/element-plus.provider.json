@@ -1,0 +1,31 @@
+{
+  "el.form.rules": {
+    "name": "form.rules",  
+    "labelDesc": "vue ref Reactivity: Core",
+    "insertText": [
+      "const rules = reactive<any>({",
+      "  data1: [",
+      "    { required: true, message: 'Please input Activity name', trigger: 'blur' },",
+      "    { min: 3, max: 5, message: 'Length should be 3 to 5', trigger: 'blur' },",
+      "  ],",
+      "  data2: [",
+      "    {",
+      "      required: true,",
+      "      message: 'Please select Activity zone',",
+      "      trigger: 'change',",
+      "    },",
+      "  ],",
+      "  date1: [",
+      "    {",
+      "      type: 'date',",
+      "      required: true,",
+      "      message: 'Please pick a date',",
+      "      trigger: 'change',",
+      "    },",
+      "  ]",
+      "})"
+    ],
+    "filterText": "form.rules",
+    "detail": "Takes an inner value and returns a reactive and mutable ref object, which has a single property .value that points to the inner value."
+  }
+}

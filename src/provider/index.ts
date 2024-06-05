@@ -1,37 +1,32 @@
 import * as vscode from 'vscode';
-import vueConfig from "./vue.provider.json";
+import configVue from "./vue.provider.json";
+import configElement from "./element-plus.provider.json";
 
 type ConfigItem = {
   name: string, // 引入的函数名
   label?: string, //匹配名
   labelDesc?: string, // 匹配名描述
   labelDetail?: string, // 匹配细节
-  insertText: string,
+  insertText: string | string[],
   detail?: string,
   filterText: string
 };
+type CompletionItemConfig = {
+  import?: boolean,
+  triggerCharacters?: string,
+}
 
-
-/**
- * In order to sort top suggestions. 
- */
+// vue pre character. example: vref 
 const VUE_TRIGGER_CHARACTER = "v";
+const ELEMENT_TRIGGER_CHARACTER = "el."
 
 // cache latest document.
 let _cacheDocument: vscode.TextDocument | null = null;
-
 const cacheMaps = new Map();
 
-// cache all completions items
-
-
-function initCompletionItem(item: ConfigItem, config: {
-  import?: boolean,
-  triggerCharacters?: string,
-}): vscode.CompletionItem {
-
+function initCompletionItem(item: ConfigItem, config: CompletionItemConfig): vscode.CompletionItem {
   const defaultConfig = {
-    import: true,
+    import: false,
     triggerCharacters: '',
   };
   const options = Object.assign(defaultConfig, config);
@@ -39,13 +34,17 @@ function initCompletionItem(item: ConfigItem, config: {
   item.filterText = item.label + " " + item.filterText;
 
   const completionItem = new vscode.CompletionItem({
-    label: item.label ,
+    label: item.label,
     description: item.labelDesc && "  " + item.labelDesc, //格式化空格
-    detail: item.labelDetail &&  "  " +  item.labelDetail   //格式化
+    detail: item.labelDetail && "  " + item.labelDetail   //格式化
   }, vscode.CompletionItemKind.Function);
 
-  completionItem.insertText = new vscode.SnippetString(item.insertText);
-  completionItem.documentation = item.detail ? item.detail + "\n\n" + item.insertText : item.insertText;
+  if(Array.isArray(item.insertText)) {
+    completionItem.insertText = new vscode.SnippetString(item.insertText.join('\n'));
+  }else{
+    completionItem.insertText = new vscode.SnippetString(item.insertText);
+  }
+  completionItem.documentation = item.detail ? item.detail + "\n\n" + completionItem.insertText.value : completionItem.insertText.value;
   completionItem.filterText = item.filterText;
   if (options?.import) {
     // 当用户选择这个补全项时，触发的代码
@@ -58,24 +57,22 @@ function initCompletionItem(item: ConfigItem, config: {
   return completionItem;
 }
 
-export function getProvideCompletionItems(key: string, jsonConfig: any) {
+export function getProvideCompletionItems(key: string, jsonConfig: any, optionConfig: CompletionItemConfig) {
   try {
+
+    // get suggest from cache
     const _cacheItems = cacheMaps.get(key);
     if (Array.isArray(_cacheItems) && _cacheItems.length > 0) {
       return _cacheItems;
     }
     const items: vscode.CompletionItem[] = [];
-
-    const configs: {
+    const jsonConfigs: {
       [key: string]: ConfigItem
     } = jsonConfig;
-    for (let key of Object.keys(configs)) {
-      const config = configs[key];
-      const item = initCompletionItem(config,
-        {
-          triggerCharacters: VUE_TRIGGER_CHARACTER
-        }
-      );
+
+    for (let key of Object.keys(jsonConfigs)) {
+      const config = jsonConfigs[key];
+      const item = initCompletionItem(config, optionConfig);
       items.push(item);
     }
     cacheMaps.set(key, items)
@@ -85,8 +82,13 @@ export function getProvideCompletionItems(key: string, jsonConfig: any) {
   }
 }
 
-
-
+/**
+ * @description Get current code container.
+ * @param document vscode doc
+ * @param position  vscode current position
+ * @returns template | script | style | other
+ * @author elicxh 
+*/
 function getCurrentScope(document: vscode.TextDocument, position: vscode.Position): 'template' | 'script' | 'style' | 'other' {
   const text = document.getText();
   const offset = document.offsetAt(position);
@@ -111,18 +113,27 @@ function getCurrentScope(document: vscode.TextDocument, position: vscode.Positio
   }
 }
 
-
 export function initProvider() {
-  getProvideCompletionItems('vue', vueConfig);
+  const completionVue = getProvideCompletionItems('vue', configVue, { import: true, triggerCharacters: VUE_TRIGGER_CHARACTER });
+  const completionElement = getProvideCompletionItems('element-plus', configElement, { import: false, triggerCharacters: ELEMENT_TRIGGER_CHARACTER })
   // 预先初始化配置
   return vscode.languages.registerCompletionItemProvider('vue', {
     provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
       _cacheDocument = document;
-      const scope = getCurrentScope(document,position)
-      if(scope === 'script') {
-        return getProvideCompletionItems('vue', vueConfig);
+      let result: any[] = []
+
+      const scope = getCurrentScope(document, position)
+
+
+      // if(scope === 'script') {
+      //   result.concat(completionVue)
+      // }
+
+      if (scope === 'script') {
+        result = [...completionElement]
       }
-      return []
+
+      return result
     }
   });
 }
@@ -130,7 +141,7 @@ export function initProvider() {
 export function initImport() {
   return vscode.commands.registerCommand('extension.addImport', async (methodName: string) => {
     const uri = _cacheDocument?.uri;
-    if(!uri) {
+    if (!uri) {
       return;
     }
     const edit = new vscode.WorkspaceEdit();

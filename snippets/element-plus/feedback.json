@@ -61,7 +61,7 @@
   "el dialog": {
     "prefix": "el.dialog",
     "body": [
-      "<el-dialog v-model=\"${1:_ref_bool}\" title=\"Tips\" width=\"500\" :before-close=\"${2:_func_beforeClose}\">",
+      "<el-dialog v-model=\"${1:dialogVisible}\" title=\"Tips\" width=\"500\" :before-close=\"${2:_func_beforeClose}\">",
       "  ${3:<span>This is a message</span>}",
       "  <template #footer>",
       "    <div class=\"dialog-footer\">",

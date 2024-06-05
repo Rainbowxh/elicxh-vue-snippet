@@ -118,7 +118,7 @@
     "prefix": "el.form.item",
     "body": [
       "<el-form-item label=\"${1:_str}\" prop=\"${2:_str}\">",
-      "  ${3:_div}",
+      "  ${3}",
       "</el-form-item>"
     ],
     "description": "el form item"
@@ -164,9 +164,7 @@
     "body": [
       "<el-select",
       "  v-model=\"${1:_ref_str}\"",
-      "  clearable=\"false\"",
       "  placeholder=\"Select\"",
-      "  style=\"width: 240px\"",
       ">",
       "  <el-option",
       "    v-for=\"item in []\"",
