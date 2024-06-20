@@ -119,18 +119,18 @@ export function initProvider() {
   // 预先初始化配置
   return vscode.languages.registerCompletionItemProvider('vue', {
     provideCompletionItems(document: vscode.TextDocument, position: vscode.Position, token: vscode.CancellationToken, context: vscode.CompletionContext) {
+      
       _cacheDocument = document;
       let result: any[] = []
 
       const scope = getCurrentScope(document, position)
 
-
-      // if(scope === 'script') {
-      //   result.concat(completionVue)
-      // }
+      if(scope === 'script') {
+        result = [...result, ...completionVue]
+      }
 
       if (scope === 'script') {
-        result = [...completionElement]
+        result = [...result, ...completionElement]
       }
 
       return result
