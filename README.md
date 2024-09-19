@@ -18,10 +18,4 @@ You can get completion suggestions by typing 'v' in front of the desired command
 ![](https://github.com/Rainbowxh/elicxh-vue-snippet/blob/develop/screenshots/image2.png?raw=true)
 
 
-#### Thanks
----
-logo design: @kv
-
-
-
 
