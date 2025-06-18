@@ -29,6 +29,7 @@ function initCompletionItem(item: ConfigItem, config: CompletionItemConfig): vsc
     import: false,
     triggerCharacters: '',
   };
+  
   const options = Object.assign(defaultConfig, config);
   item.label = options.triggerCharacters + (item.label || item.name);
   item.filterText = item.label + " " + item.filterText;
@@ -59,7 +60,6 @@ function initCompletionItem(item: ConfigItem, config: CompletionItemConfig): vsc
 
 export function getProvideCompletionItems(key: string, jsonConfig: any, optionConfig: CompletionItemConfig) {
   try {
-
     // get suggest from cache
     const _cacheItems = cacheMaps.get(key);
     if (Array.isArray(_cacheItems) && _cacheItems.length > 0) {
@@ -69,7 +69,6 @@ export function getProvideCompletionItems(key: string, jsonConfig: any, optionCo
     const jsonConfigs: {
       [key: string]: ConfigItem
     } = jsonConfig;
-
     for (let key of Object.keys(jsonConfigs)) {
       const config = jsonConfigs[key];
       const item = initCompletionItem(config, optionConfig);

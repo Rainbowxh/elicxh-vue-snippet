@@ -343,5 +343,43 @@
     "insertText": "withModifiers(() => {${2}},[${3}]);",
     "filterText": "withModifiers",
     "detail": "For adding built-in v-on modifiers to an event handler function."
+  },
+  "useAttrs": {
+    "name": "useAttrs",
+    "labelDesc": "vue useAttrs",
+    "insertText": "useAttrs();",
+    "filterText": "useAttrs",
+    "detail": "Returns the attrs object from the Setup Context, which includes the fallthrough attributes of the current component. This is intended to be used in <script setup> where the setup context object is not available."
+  },
+  "useSlots": {
+    "name": "useSlots",
+    "labelDesc": "vue useSlots",
+    "insertText": "const slots = useSlots();",
+    "filterText": "useSlots",
+    "detail": "Returns the slots object from the Setup Context, which includes parent passed slots as callable functions that return Virtual DOM nodes. This is intended to be used in <script setup> where the setup context object is not available.If using TypeScript, defineSlots() should be preferred instead."
+  },
+  "useModel": {
+    "name": "useAttrs",
+    "labelDesc": "vue useAttrs",
+    "labelDetail": "v3.4+",
+    "insertText": "const attrs = useAttrs();",
+    "filterText": "useAttrs",
+    "detail": "This is the underlying helper that powers defineModel(). If using <script setup>, defineModel() should be preferred instead."
+  },
+  "useTemplateRef": {
+    "name": "useTemplateRef",
+    "labelDesc": "vue useTemplateRef",
+    "labelDetail": "v3.5+",
+    "insertText": "const inputRef = useTemplateRef();",
+    "filterText": "useTemplateRef",
+    "detail": "Returns a shallow ref whose value will be synced with the template element or component with a matching ref attribute."
+  },
+  "useId": {
+    "name": "useId",
+    "labelDesc": "vue useId",
+    "labelDetail": "v3.5+",
+    "insertText": "const ${1} = useId();",
+    "filterText": "useId",
+    "detail": "Returns a shallow ref whose value will be synced with the template element or component with a matching ref attribute."
   }
 }
