@@ -270,64 +270,136 @@ export function clean() {
   cacheMaps.clear();
 }
 
+/**
+ * import 排序插件，用于将多个import 进行分组调整
+ * 
+ * 优先级
+ *  1. vue vuex element-plus ... 第三方引用
+ *  2. api
+ *  3. .vue
+ *  4. @/../../.. 
+ *  5. ./ ../ 
+ *  
+ * 相同优先级下
+ *  1. default import 
+ *  2. {} import 
+ * 
+ * @returns 
+ */
 export function initImportSort() {
- function organizeImportsViaAST(selectedCode: string): string {
-  let ast;
-  try {
-    ast = parser.parse(selectedCode, {
-      sourceType: 'module',
-      plugins: ['typescript', 'jsx'],
-    });
-  } catch (err) {
-    return selectedCode; // 🛑 非法语法，不处理
-  }
+  function organizeImportsViaAST(selectedCode: string): string {
+    let ast;
+    try {
+      ast = parser.parse(selectedCode, {
+        sourceType: "module",
+        plugins: ["typescript", "jsx"],
+      });
+    } catch (err) {
+      return selectedCode; 
+    }
 
-  const imports: t.ImportDeclaration[] = [];
+    const imports: t.ImportDeclaration[] = [];
 
-  for (const node of ast.program.body) {
-    if (t.isImportDeclaration(node)) {
-      imports.push(node);
-    } else {
+    for (const node of ast.program.body) {
+      if (t.isImportDeclaration(node)) {
+        imports.push(node);
+      } else {
+        return selectedCode;
+      }
+    }
+
+    if (imports.length === 0) {
       return selectedCode;
     }
-  }
 
-  if (imports.length === 0) return selectedCode;
+    /** .vue结尾 */
+    const vueImports: t.ImportDeclaration[] = [];
+    /** .api结尾 */
+    const apiImports: t.ImportDeclaration[] = [];
+    /** 未明分类 */
+    const otherImports: t.ImportDeclaration[] = [];
+    /** @/xxx 分类 */
+    const atImports: t.ImportDeclaration[] = [];
+    /** ./ ../ 分类 */
+    const pathImports: t.ImportDeclaration[] = [];
 
-  // 分类
-  const vueImports: t.ImportDeclaration[] = [];
-  const apiImports: t.ImportDeclaration[] = [];
-  const otherImports: t.ImportDeclaration[] = [];
-
-  for (const imp of imports) {
-    const source = imp.source.value;
-    if (source.endsWith('.vue')) {
-      vueImports.push(imp);
-    } else if (source.includes('.api')) {
-      apiImports.push(imp);
-    } else {
-      otherImports.push(imp);
+    for (const imp of imports) {
+      const source = imp.source.value;
+      if (source.endsWith(".vue")) {
+        vueImports.push(imp);
+      } else if (source.includes(".api")) {
+        apiImports.push(imp);
+      } else if (source.startsWith("@")) {
+        atImports.push(imp);
+      } else if (source.startsWith("./") || source.startsWith("../")) {
+        pathImports.push(imp);
+      } else {
+        otherImports.push(imp);
+      }
     }
+
+    const serializeGroup = (group: t.ImportDeclaration[]): string => {
+
+      const getLanes = (importDeclaration: t.ImportDeclaration) => {
+        const str = importDeclaration.source.value;
+        let num = 1;
+
+        if(str.startsWith('./') || str.startsWith('../')) {
+          num = num | 1 << 10;
+        }else if(str.startsWith('@')) {
+          num = num | 1 << 9;
+        }else  {
+          num = num | 1 << 11;
+        }
+
+        if(importDeclaration.specifiers.length > 0) {
+          const type = importDeclaration.specifiers[0].type;
+          const isDefault = type === "ImportDefaultSpecifier";
+          if(isDefault) {
+            num = num | 1 << 8;
+          }
+        }
+        return num;
+      }
+
+      return group
+        .sort((a, b) => {
+          const aLanes = getLanes(a);
+          const bLanes = getLanes(b);
+
+          if(aLanes !== bLanes) {
+            return bLanes - aLanes
+          }
+
+          return a.source.value.localeCompare(b.source.value);
+        })
+        .map((imp) => generate(imp).code).join("\n"); 
+    }
+
+    const groupStrings: string[] = [];
+
+    if (otherImports.length > 0) {
+      groupStrings.push(serializeGroup(otherImports));
+    }
+    if (apiImports.length > 0) {
+      groupStrings.push(serializeGroup(apiImports));
+    }
+    if (vueImports.length > 0) {
+      groupStrings.push(serializeGroup(vueImports));
+    }
+
+    if (atImports.length > 0) {
+      groupStrings.push(serializeGroup(atImports));
+    }
+
+    if (pathImports.length > 0) {
+      groupStrings.push(serializeGroup(pathImports));
+    }
+
+    const importSection = groupStrings.join("\n\n"); // ← 每组之间加一个空行
+
+    return importSection;
   }
-
-  const serializeGroup = (group: t.ImportDeclaration[]): string =>
-    group
-      .map((imp) => generate(imp).code)
-      .join('\n'); // ← 每条 import 之间无空行
-
-  const groupStrings: string[] = [];
-
-  if (otherImports.length > 0) {
-    groupStrings.push(serializeGroup(otherImports));
-  }
-  if (apiImports.length > 0) {groupStrings.push(serializeGroup(apiImports));}
-  if (vueImports.length > 0) {groupStrings.push(serializeGroup(vueImports));}
-
-
-  const importSection = groupStrings.join('\n\n'); // ← 每组之间加一个空行
-
-  return importSection;
-}
   return vscode.commands.registerCommand(
     "extension.organizeImportsGroup",
     () => {
