@@ -17,6 +17,21 @@
   "main": "./dist/extension.js",
   "icon": "icons/logo.png",
   "contributes": {
+    "commands": [
+      {
+        "command": "extension.organizeImportsGroup",
+        "title": "归纳 Import"
+      }
+    ],
+    "menus": {
+      "editor/context": [
+        {
+          "command": "extension.organizeImportsGroup",
+          "when": "editorHasSelection && resourceExtname =~ /\\.(vue|ts|tsx|js|jsx)$/",
+          "group": "navigation"
+        }
+      ]
+    },
     "snippets": [
       {
         "language": "vue",
@@ -56,6 +71,7 @@
     "test": "node ./out/test/runTest.js"
   },
   "devDependencies": {
+    "@types/babel__generator": "^7.27.0",
     "@types/mocha": "^10.0.3",
     "@types/node": "18.x",
     "@types/vscode": "^1.89.0",
@@ -75,5 +91,9 @@
   "files": [
     "src/snippets"
   ],
-  "packageManager": "pnpm@10.6.2+sha512.47870716bea1572b53df34ad8647b42962bc790ce2bf4562ba0f643237d7302a3d6a8ecef9e4bdfc01d23af1969aa90485d4cebb0b9638fa5ef1daef656f6c1b"
+  "packageManager": "pnpm@10.6.2+sha512.47870716bea1572b53df34ad8647b42962bc790ce2bf4562ba0f643237d7302a3d6a8ecef9e4bdfc01d23af1969aa90485d4cebb0b9638fa5ef1daef656f6c1b",
+  "dependencies": {
+    "@babel/generator": "^7.28.0",
+    "@babel/parser": "^7.28.0"
+  }
 }

@@ -2,4 +2,4 @@
 
 vsce package
 vsce login <publisher name>
-vsce publish
+vsce publish patch
