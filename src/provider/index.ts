@@ -283,13 +283,12 @@ export function initImportSort() {
   }
 
   const imports: t.ImportDeclaration[] = [];
-  const nonImportStatements: t.Statement[] = [];
 
   for (const node of ast.program.body) {
     if (t.isImportDeclaration(node)) {
       imports.push(node);
     } else {
-      nonImportStatements.push(node);
+      return selectedCode;
     }
   }
 
@@ -327,12 +326,7 @@ export function initImportSort() {
 
   const importSection = groupStrings.join('\n\n'); // ← 每组之间加一个空行
 
-  // 非 import 内容保持原样（可选拼接）
-  const nonImportCode = nonImportStatements.length
-    ? '\n\n' + generate({ ...ast, program: { ...ast.program, body: nonImportStatements } }).code
-    : '';
-
-  return importSection + nonImportCode;
+  return importSection;
 }
   return vscode.commands.registerCommand(
     "extension.organizeImportsGroup",
